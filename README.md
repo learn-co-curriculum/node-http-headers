@@ -1,5 +1,13 @@
 # Setting http Headers
 
+## Objectives
+
+1. Describe how to read request headers
+2. Describe how to write response headers
+1. Refresh knowledge about Content-Type header
+1. Refresh knowledge about Content-Length header
+
+
 ## Overview
 
 Most of web developers are familiar with HTTP headers. They are part of the HTTP requests and responses. Simply put, they provide meta information about the request or response such as content type, content length, language, etc. Without headers, clients including browsers, will be clueless on what the content in the body of the response to expect. They need this meta data to render the content more intelligently. Similarly, without headers, servers will be left guessing what is the nature of the request and what is expected of the server in terms of the response. 
@@ -10,15 +18,7 @@ Headers often contain authentication information as well. This enables user sess
 
 This lesson will cover how to read any the request headers and write any response headers on the server using the examples of Accept-Charset, and Content-Type, Content-Length headers.
 
-## Objectives
-
-1. Describe how to read request headers
-2. Describe how to write response headers
-1. Refresh knowledge about Content-Type header
-1. Refresh knowledge about Content-Length header
-
-## request Headers
-
+## Request Headers
 
 `request` object of the request handler has an object `headers`. It has names of the headers as keys/properties. The names are lower-cased. For example, if you want to get the value of the `Accept-Charset` request header, you can access `request.headers['accept-charset']`:
 
@@ -29,7 +29,7 @@ console.log(request.headers['accept-charset'])
 To send the request headers, we like to use curl:
 
 ```
-$  curl --header "Accept-Charset: base64" localhost:3000
+curl --header "Accept-Charset: base64" localhost:3000
 ```
 
 You can even get CURL for Windows at <http://www.confusedbycode.com/curl>.
@@ -46,7 +46,7 @@ console.log(request.headers['azat-header'])
 
 
 ```
-$  curl --header "Azat-Header: base64" localhost:3000
+curl --header "Azat-Header: base64" localhost:3000
 ```
 
 
