@@ -32,7 +32,7 @@ To send the request headers, we like to use curl:
 curl --header "Accept-Charset: base64" localhost:3000
 ```
 
-You can even get CURL for Windows at <http://www.confusedbycode.com/curl>.
+You can even get CURL for Windows [here](http://www.confusedbycode.com/curl).
 
 Note: If you prefer GUI (graphical user interface) over CLI (command-line interface), you can use the [Postman Chrome app](http://www.getpostman.com) to send a request with a custom `Accept-Charset` header along with its Interceptor extension.
 
@@ -50,9 +50,9 @@ curl --header "Azat-Header: base64" localhost:3000
 ```
 
 
-## response Headers
+## Response Headers
 
-When it comes to sending back the response, it's a good idea to write response headers. As mentioned before, clients will work more intelligently with out content when our servers provide proper response headers. For the same reason, we also want to send back the appropriate status code. 
+When it comes to sending back the response, it's a good idea to write response headers. As mentioned before, clients will work more intelligently without content when our servers provide proper response headers. For the same reason, we also want to send back the appropriate status code. 
 
 There are four categories of status codes:
 
@@ -61,7 +61,7 @@ There are four categories of status codes:
 * 4XX: for client-side errors
 * 5XX: for server-side errors
 
-Using core `http` module, in the request handler, we can write the header with `response.writeHead(statusCode[, statusMessage][, headers]))` where `headers` is an object. For example, if we want to you send back status 200 with the message okay and two headers `Content-Type` and `Content-Length`, then we can use these statements:
+Using the core `http` module in the request handler, we can write the header with `response.writeHead(statusCode[, statusMessage][, headers]))` where `headers` is an object. For example, if we want to you send back status 200 with the message okay and two headers `Content-Type` and `Content-Length`, then we can use these statements:
 
 
 ```js
