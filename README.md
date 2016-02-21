@@ -26,13 +26,29 @@ This lesson will cover how to read any the request headers and write any respons
 console.log(request.headers['accept-charset'])
 ```
 
-To send the request headers, we like to use curl:
+Note: If you don't know what Accept-Charset is, it's the value of the character set which client tells the server it (client) accepts as response. According to [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation#The_Accept-Charset_header), Accept-Charset is lists the character sets supported by the user agent. Example values are `utf-8`, `ISO-8859-1`.
+
+To send the request headers, we like to use curl, because it's a simplistic CLI tool with straightforward options. You can use CURL on any server! We really advice against using Postman because it requires GUI (graphical environment) and adds additional complexity. Try using Postman on your Ubuntu AWS instance. So if you want to become a real developer—use CURL.
+
+CURL is easy. For example, to get the <http://webapplog.com/about/> page, you can run this command in your terminal (GET request):
+
+```
+curl http://webapplog.com/about/
+```
+
+If you need to send POST request, you can specify `--data` or `-d` option along with `-X POST` options:
+
+```
+curl -X POST -d "ke1=value1" http://webapplog.com/about/
+```
+
+To send headers, use `--header` option:
 
 ```
 curl --header "Accept-Charset: base64" localhost:3000
 ```
 
-You can even get CURL for Windows [here](http://www.confusedbycode.com/curl).
+Note: CURL comes with most POSIX (Unix-like) systems. You can get CURL for Windows [here](http://www.confusedbycode.com/curl).
 
 Note: If you prefer GUI (graphical user interface) over CLI (command-line interface), you can use the [Postman Chrome app](http://www.getpostman.com) to send a request with a custom `Accept-Charset` header along with its Interceptor extension.
 
@@ -61,7 +77,15 @@ There are four categories of status codes:
 * 4XX: for client-side errors
 * 5XX: for server-side errors
 
-Using the core `http` module in the request handler, we can write the header with `response.writeHead(statusCode[, statusMessage][, headers]))` where `headers` is an object. For example, if we want to you send back status 200 with the message okay and two headers `Content-Type` and `Content-Length`, then we can use these statements:
+Using the core `http` module in the request handler, we can write the header with `writeHead()` which has this signature: 
+
+```
+response.writeHead(statusCode[, statusMessage][, headers]))
+```
+
+In this signature,  `[]` signify optional parameters (not arrays). In other words, statusCode is mandatory and `statusMessage` and `headers` is not. You will see this annotation in all official documentations so get used to it. 
+
+Now let's get back to the headers. `statusMessage` is a string and `headers` is an object. They are optional as noted before by the `[]`. For example, if we want to you send back status 200 with the message okay and two headers `Content-Type` and `Content-Length`, then we can use these statements:
 
 
 ```js
@@ -132,13 +156,13 @@ if (request.headers['appect-charset'] == 'base64') {
 ## Resources
 
 1. [Header Field Definitions specification](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
-2. [List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
+1. [List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
 1. [request headers official documentation](https://nodejs.org/api/http.html#http_message_headers)
 1. [writeHead official documentation](https://nodejs.org/api/http.html#http_response_writehead_statuscode_statusmessage_headers)
-2. [HTTP - Setting Content-Type header video](https://www.youtube.com/watch?v=P6MHXU2Vu1s)
-3. [CURL for Windows](http://www.confusedbycode.com/curl)
-3. [Postman Chrome app](http://www.getpostman.com)
-
+1. [HTTP - Setting Content-Type header video](https://www.youtube.com/watch?v=P6MHXU2Vu1s)
+1. [CURL for Windows](http://www.confusedbycode.com/curl)
+1. [Postman Chrome app](http://www.getpostman.com)
+1. [Using cURL to automate HTTP jobs](https://curl.haxx.se/docs/httpscripting.html)
 
 ---
 
