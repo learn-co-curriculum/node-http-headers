@@ -10,9 +10,9 @@
 
 ## Overview
 
-Most of web developers are familiar with HTTP headers. They are part of the HTTP requests and responses. Simply put, they provide meta information about the request or response such as content type, content length, language, etc. Without headers, clients including browsers, will be clueless on what the content in the body of the response to expect. They need this meta data to render the content more intelligently. Similarly, without headers, servers will be left guessing what is the nature of the request and what is expected of the server in terms of the response. 
+Most of web developers are familiar with HTTP headers. They are part of the HTTP requests and responses. Simply put, they provide meta information about the request or response such as content type, content length, language, etc. Without headers, clients (including browsers) will be clueless on what the content in the body of the response expects. They need this meta data to render the content more intelligently. Similarly, without headers, servers will be left guessing what the nature of the request i and what is expected as a response.
 
-For example, if we have the type of the content as plain text but really it's an HTML code that we want to browsers to render, some browsers might just output HTML code instead of the web page. Not the result we want!
+For example, if we have the content type set as plain text but really it's HTML code that we want to browsers to render, some browsers might just output HTML code instead of the web page. Not the result we want!
 
 Headers often contain authentication information as well. This enables user sessions.
 
@@ -20,15 +20,15 @@ This lesson will cover how to read any the request headers and write any respons
 
 ## Request Headers
 
-`request` object of the request handler has an object `headers`. It has names of the headers as keys/properties. The names are lower-cased. For example, if you want to get the value of the `Accept-Charset` request header, you can access `request.headers['accept-charset']`:
+The `request` object of the request handler has an object `headers`. It has names of the headers as keys/properties. The names are lower-cased. For example, if you want to get the value of the `Accept-Charset` request header, you can access `request.headers['accept-charset']`:
 
 ```js
 console.log(request.headers['accept-charset'])
 ```
 
-Note: If you don't know what Accept-Charset is, it's the value of the character set which client tells the server it (client) accepts as response. According to [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation#The_Accept-Charset_header), Accept-Charset is lists the character sets supported by the user agent. Example values are `utf-8`, `ISO-8859-1`.
+Note: `accept-charset` is the value of the character set which the client uses to tell the server it (client) accepts a response. According to [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation#The_Accept-Charset_header), Accept-Charset lists the character sets supported by the user agent. Example values are `utf-8`, `ISO-8859-1`.
 
-To send the request headers, we like to use curl, because it's a simplistic CLI tool with straightforward options. You can use CURL on any server! We really advice against using Postman because it requires GUI (graphical environment) and adds additional complexity. Try using Postman on your Ubuntu AWS instance. So if you want to become a real developer—use CURL.
+To send the request headers, we like to use curl, because it's a simplistic CLI tool with straightforward options. You can use CURL on any server! Postman is great, but because it requires GUI (graphical environment), it adds additional complexity. It's really hard to use Postman on your Ubuntu AWS instance. Typically, most developers will use curl.
 
 CURL is easy. For example, to get the <http://webapplog.com/about/> page, you can run this command in your terminal (GET request):
 
@@ -70,22 +70,15 @@ curl --header "Azat-Header: base64" localhost:3000
 
 When it comes to sending back the response, it's a good idea to write response headers. As mentioned before, clients will work more intelligently without content when our servers provide proper response headers. For the same reason, we also want to send back the appropriate status code. 
 
-There are four categories of status codes:
-
-* 2XX: for successfully processed requests
-* 3XX: for redirections or cache information
-* 4XX: for client-side errors
-* 5XX: for server-side errors
-
 Using the core `http` module in the request handler, we can write the header with `writeHead()` which has this signature: 
 
 ```
-response.writeHead(statusCode[, statusMessage][, headers]))
+response.writeHead(statusCode[, statusMessage][, headers])
 ```
 
-In this signature,  `[]` signify optional parameters (not arrays). In other words, statusCode is mandatory and `statusMessage` and `headers` is not. You will see this annotation in all official documentations so get used to it. 
+In this signature,  `[]` signify optional parameters (not arrays). In other words, statusCode is mandatory and `statusMessage` and `headers` is not. 
 
-Now let's get back to the headers. `statusMessage` is a string and `headers` is an object. They are optional as noted before by the `[]`. For example, if we want to you send back status 200 with the message okay and two headers `Content-Type` and `Content-Length`, then we can use these statements:
+`statusMessage` is a string and `headers` is an object. They are optional as noted before by the `[]`. For example, if we want to you send back status 200 with the message okay and two headers `Content-Type` and `Content-Length`, then we can use these statements:
 
 
 ```js
@@ -152,6 +145,8 @@ if (request.headers['appect-charset'] == 'base64') {
   // output utf8 response
 }
 ```
+
+This code example can be found in `server.js`. Start up a server and few the `console.log` outputs in the browser by visiting `localhost:3000`.
 
 ## Resources
 
